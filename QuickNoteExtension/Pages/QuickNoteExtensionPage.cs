@@ -20,7 +20,8 @@ internal sealed partial class QuickNoteExtensionPage : ListPage
     public override IListItem[] GetItems()
     {
         return [
-            new ListItem(new CreateNoteFormPage()) { Title = "Create a new note", Subtitle = "Quickly save a note to desktop" }
+            new ListItem(new CreateNoteFormPage()) { Title = "Create a new note", Subtitle = "Quickly save a note to desktop" },
+            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly create a note using the clipboard contents" }
         ];
     }
 }
