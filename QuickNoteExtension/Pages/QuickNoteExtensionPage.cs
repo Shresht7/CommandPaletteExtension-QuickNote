@@ -4,6 +4,7 @@
 
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using QuickNoteExtension.Pages;
 
 namespace QuickNoteExtension;
 
@@ -19,7 +20,7 @@ internal sealed partial class QuickNoteExtensionPage : ListPage
     public override IListItem[] GetItems()
     {
         return [
-            new ListItem(new NoOpCommand()) { Title = "TODO: Implement your extension here" }
+            new ListItem(new CreateNoteFormPage()) { Title = "Create a new note", Subtitle = "Quickly save a note to desktop" }
         ];
     }
 }
