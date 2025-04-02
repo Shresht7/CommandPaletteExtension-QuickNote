@@ -30,31 +30,42 @@ namespace QuickNoteExtension.Pages
     {
         public CreateNoteForm() {
             TemplateJson = $$"""
-             {
+            {
                 "type": "AdaptiveCard",
                 "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
                 "version": "1.6",
                 "body": [
                     {
                         "type": "Input.Text",
-                        "id": "title",
-                        "label": "Title",
                         "placeholder": "Note title",
-                        "isRequired": true
+                        "label": "Title",
+                        "isRequired": true,
+                        "id": "title",
+                        "errorMessage": "Title is required"
                     },
                     {
                         "type": "Input.Text",
-                        "id": "content",
-                        "label": "Content",
-                        "placeholder": "Write your note contents...",
+                        "placeholder": "Write your note contents here...",
                         "isMultiline": true,
-                        "isRequired": true
-                    }
-                ],
-                "actions": [
+                        "label": "Content",
+                        "id": "content",
+                        "height": "stretch",
+                        "isRequired": true,
+                        "errorMessage": "Contents are required"
+                    },
                     {
-                        "type": "Action.Submit",
-                        "title": "Save Note"
+                        "type": "ActionSet",
+                        "actions": [
+                            {
+                                "type": "Action.Submit",
+                                "title": "Save",
+                                "id": "submit",
+                                "tooltip": "Create Note",
+                                "role": "Button"
+                            }
+                        ],
+                        "spacing": "Medium",
+                        "separator": true
                     }
                 ]
             }
