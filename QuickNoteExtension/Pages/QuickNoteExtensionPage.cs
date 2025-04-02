@@ -12,7 +12,7 @@ internal sealed partial class QuickNoteExtensionPage : ListPage
 {
     public QuickNoteExtensionPage()
     {
-        Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+        Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
         Title = "Quick Note";
         Name = "Open";
     }

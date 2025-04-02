@@ -15,7 +15,7 @@ namespace QuickNoteExtension.Pages
     internal sealed partial class CreateNoteFormPage : ContentPage
     {
         public CreateNoteFormPage() {
-            Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+            Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
             Title = "New Note";
             Name = "Create Note";
         }

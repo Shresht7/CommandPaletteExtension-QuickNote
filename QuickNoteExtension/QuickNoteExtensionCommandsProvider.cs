@@ -14,7 +14,7 @@ public partial class QuickNoteExtensionCommandsProvider : CommandProvider
     public QuickNoteExtensionCommandsProvider()
     {
         DisplayName = "Quick Note";
-        Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+        Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
         _commands = [
             new CommandItem(new QuickNoteExtensionPage()) { Title = DisplayName },
         ];
