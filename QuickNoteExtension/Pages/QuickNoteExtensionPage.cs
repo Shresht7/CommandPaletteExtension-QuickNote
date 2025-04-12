@@ -4,6 +4,7 @@
 
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using QuickNoteExtension.Commands;
 using QuickNoteExtension.Pages;
 
 namespace QuickNoteExtension;
@@ -33,11 +34,11 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         // Only update if there's a meaningful change
         if (oldSearch == newSearch) return;
 
-        // Update the text contents
+        // Update the Text contents
         quickNote.Subtitle = newSearch;
 
-        // Update the command based on the query-text
-        quickNote.Command = new AnonymousCommand(null) { Result = CommandResult.ShowToast($"Saving {newSearch}") };
+        // Update the command based on the query-Text
+        quickNote.Command = new SaveNoteCommand(newSearch);
 
         RaiseItemsChanged(); // Responsible for indicating that the item needs to re-rendered
     }
