@@ -36,6 +36,9 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         // Update the text contents
         quickNote.Subtitle = newSearch;
 
+        // Update the command based on the query-text
+        quickNote.Command = new AnonymousCommand(null) { Result = CommandResult.ShowToast($"Saving {newSearch}") };
+
         RaiseItemsChanged(); // Responsible for indicating that the item needs to re-rendered
     }
 }
