@@ -16,6 +16,7 @@ public class QuickNoteExtensionSettings: JsonSettingsManager
         FilePath = GetSettingsPath();
 
         Settings.Add(NotesPath);
+        Settings.Add(Extension);
 
         LoadSettings();
 
@@ -27,6 +28,13 @@ public class QuickNoteExtensionSettings: JsonSettingsManager
         "Path",
         "Path to the directory to save the notes",
         Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+    );
+
+    public readonly TextSetting Extension = new(
+        "extension",
+        "Extension",
+        "The file extension to use for the notes",
+        "txt"
     );
 
     internal static string GetSettingsPath()
