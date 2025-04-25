@@ -109,10 +109,10 @@ namespace QuickNoteExtension.Pages
 
         private static string GenerateFilePath(string title)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             // Use timestamp to create unique filename
             string fileName = $"{title}_{DateTime.Now:yyyyMMdd_HHmmss}.md";
-            string filePath = Path.Combine(desktopPath, fileName);
+            string filePath = Path.Combine(directory, fileName);
             return filePath;
         }
     }

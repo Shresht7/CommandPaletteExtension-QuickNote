@@ -26,9 +26,9 @@ namespace QuickNoteExtension.Commands
 
         public override ICommandResult Invoke()
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string filename = $"Note-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
-            string filePath = Path.Combine(desktopPath, filename);
+            string filePath = Path.Combine(directory, filename);
 
             try
             {

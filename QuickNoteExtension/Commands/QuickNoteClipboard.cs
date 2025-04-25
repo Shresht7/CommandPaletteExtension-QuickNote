@@ -21,9 +21,9 @@ internal sealed partial class SaveClipboardCommand : InvokableCommand
             return CommandResult.ShowToast("The clipboard is empty");
         }
 
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         string filename = $"clipboard-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
-        string filePath = Path.Combine(desktopPath, filename);
+        string filePath = Path.Combine(directory, filename);
 
         try
         {
