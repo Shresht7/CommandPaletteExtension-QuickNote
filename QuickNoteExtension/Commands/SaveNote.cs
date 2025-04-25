@@ -20,7 +20,7 @@ namespace QuickNoteExtension.Commands
         public SaveNoteCommand(string? contents = "")
         {
             Name = "Save Note";
-            Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
+            Icon = new("\uE70B");
             Text = contents ?? "";
         }
 
