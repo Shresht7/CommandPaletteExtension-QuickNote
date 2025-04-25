@@ -91,7 +91,7 @@ namespace QuickNoteExtension.Pages
             var contents = formInput["content"]?.GetValue<string>() ?? "";
 
             // Generate the filePath for the note
-            string filePath = GenerateFilePath(title);
+            (string filePath, string fileName) = Utils.NotePath(title);
 
             // Save the quick-note on disk
             try
@@ -104,16 +104,7 @@ namespace QuickNoteExtension.Pages
             };
 
             // Show a toast to confirm saving the note
-            return CommandResult.ShowToast($"Note saved: {filePath}");
-        }
-
-        private static string GenerateFilePath(string title)
-        {
-            string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            // Use timestamp to create unique filename
-            string fileName = $"{title}_{DateTime.Now:yyyyMMdd_HHmmss}.md";
-            string filePath = Path.Combine(directory, fileName);
-            return filePath;
+            return CommandResult.ShowToast($"Note saved: {fileName}");
         }
     }
 }

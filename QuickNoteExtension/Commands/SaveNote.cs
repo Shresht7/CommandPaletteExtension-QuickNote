@@ -26,9 +26,7 @@ namespace QuickNoteExtension.Commands
 
         public override ICommandResult Invoke()
         {
-            string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = $"Note-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
-            string filePath = Path.Combine(directory, filename);
+            (string filePath, string fileName) = Utils.NotePath("note");
 
             try
             {
@@ -39,7 +37,7 @@ namespace QuickNoteExtension.Commands
                 return CommandResult.ShowToast($"Error saving file: {ex.Message}");
             }
 
-            return CommandResult.ShowToast($"Saved note to {filename}");
+            return CommandResult.ShowToast($"Saved note to {fileName}");
         }
     }
 }

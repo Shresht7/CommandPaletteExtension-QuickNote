@@ -8,22 +8,21 @@ namespace QuickNoteExtension;
 
 internal sealed partial class SaveClipboardCommand : InvokableCommand
 {
-        public SaveClipboardCommand()
+    public SaveClipboardCommand()
     {
         Name = "Save Clipboard";
-        Icon = new("\uF0E3");        
+        Icon = new("\uF0E3");
     }
 
-    public override ICommandResult Invoke() {
+    public override ICommandResult Invoke()
+    {
         string text = ClipboardHelper.GetText();
         if (string.IsNullOrEmpty(text))
         {
             return CommandResult.ShowToast("The clipboard is empty");
         }
 
-        string directory = QuickNoteExtensionSettings.Instance.NotesPath.Value ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string filename = $"clipboard-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
-        string filePath = Path.Combine(directory, filename);
+        (string filePath, string fileName) = Utils.NotePath("clipboard");
 
         try
         {
@@ -34,7 +33,6 @@ internal sealed partial class SaveClipboardCommand : InvokableCommand
             return CommandResult.ShowToast($"Error saving file: {ex.Message}");
         }
 
-        return CommandResult.ShowToast($"Saved clipboard to {filename}");
+        return CommandResult.ShowToast($"Saved clipboard to {fileName}");
     }
-
 }
