@@ -19,7 +19,7 @@ public class QuickNoteExtensionSettings: JsonSettingsManager
 
         LoadSettings();
 
-        Settings.SettingsChanged += (s, a) => { };
+        Settings.SettingsChanged += (s, a) => SaveSettings();
     }
 
     public readonly TextSetting NotesPath = new(
