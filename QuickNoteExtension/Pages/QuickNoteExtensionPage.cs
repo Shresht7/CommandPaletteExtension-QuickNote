@@ -19,7 +19,7 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
     }
 
     readonly static string defaultSubtext = "Type something...";
-    ListItem quickNote = new(new NoOpCommand()) { Title = "Save note", Subtitle = defaultSubtext };
+    ListItem quickNote = new(new NoOpCommand()) { Title = "Save note", Subtitle = defaultSubtext, Icon = new IconInfo("\uE70B") };
 
     public override IListItem[] GetItems()
     {
