@@ -13,9 +13,8 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
 {
     public QuickNoteExtensionPage()
     {
-        Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
         Title = "Quick Note";
-        Name = "Open";
+        Icon = new("\uE70B");
     }
 
     readonly static string defaultSubtext = "Type something...";

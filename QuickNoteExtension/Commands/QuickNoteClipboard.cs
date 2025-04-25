@@ -11,7 +11,7 @@ internal sealed partial class SaveClipboardCommand : InvokableCommand
         public SaveClipboardCommand()
     {
         Name = "Save Clipboard";
-        Icon = new("📋");
+        Icon = new("\uF0E3");        
     }
 
     public override ICommandResult Invoke() {
