@@ -14,11 +14,11 @@ public partial class QuickNoteExtensionCommandsProvider : CommandProvider
     public QuickNoteExtensionCommandsProvider()
     {
         DisplayName = "Quick Note";
-        Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
-        Settings = QuickNoteExtensionSettings.Instance.Settings;
+        Icon = new("\uE70B");
         _commands = [
             new CommandItem(new QuickNoteExtensionPage()) { Title = DisplayName, Subtitle = "Take a quick note" },
         ];
+        Settings = QuickNoteExtensionSettings.Instance.Settings;
     }
 
     public override ICommandItem[] TopLevelCommands()
