@@ -18,7 +18,8 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         Name = "Open";
     }
 
-    ListItem quickNote = new(new NoOpCommand()) { Title = "Save note", Subtitle = "Type something..." };
+    readonly static string defaultSubtext = "Type something...";
+    ListItem quickNote = new(new NoOpCommand()) { Title = "Save note", Subtitle = defaultSubtext };
 
     public override IListItem[] GetItems()
     {
@@ -35,7 +36,7 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         if (oldSearch == newSearch) return;
 
         // Update the Text contents
-        quickNote.Subtitle = newSearch;
+        quickNote.Subtitle = string.IsNullOrEmpty(newSearch) ? defaultSubtext : newSearch;
 
         // Update the command based on the query-Text
         quickNote.Command = new SaveNoteCommand(newSearch);
