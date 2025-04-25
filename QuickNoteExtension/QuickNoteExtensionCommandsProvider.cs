@@ -15,6 +15,7 @@ public partial class QuickNoteExtensionCommandsProvider : CommandProvider
     {
         DisplayName = "Quick Note";
         Icon = IconHelpers.FromRelativePath("Assets\\StickyNoteIcon.png");
+        Settings = QuickNoteExtensionSettings.Instance.Settings;
         _commands = [
             new CommandItem(new QuickNoteExtensionPage()) { Title = DisplayName, Subtitle = "Take a quick note" },
         ];
