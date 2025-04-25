@@ -15,17 +15,18 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
     {
         Title = "Quick Note";
         Icon = new("\uE70B");
+        Name = "Open";
     }
 
     readonly static string defaultSubtext = "Type something...";
-    ListItem quickNote = new(new NoOpCommand()) { Title = "Save note", Subtitle = defaultSubtext, Icon = new IconInfo("\uE70B") };
+    ListItem quickNote = new(new NoOpCommand()) { Title = "Quick note", Subtitle = defaultSubtext, Icon = new IconInfo("\uE70B") };
 
     public override IListItem[] GetItems()
     {
         return [
             quickNote,
-            new ListItem(new CreateNoteFormPage()) { Title = "Create a new note", Subtitle = "Quickly save a note to desktop" },
-            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly create a note using the clipboard contents" },
+            new ListItem(new CreateNoteFormPage()) { Title = "Create note", Subtitle = "Create a new note" },
+            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly save the clipboard contents" },
         ];
     }
 
