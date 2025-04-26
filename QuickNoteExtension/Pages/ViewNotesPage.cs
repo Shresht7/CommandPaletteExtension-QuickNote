@@ -8,13 +8,13 @@ using Microsoft.CommandPalette.Extensions.Toolkit;
 
 namespace QuickNoteExtension.Pages
 {
-    internal sealed partial class ViewNotePage : DynamicListPage
+    internal sealed partial class ViewNotesPage : DynamicListPage
     {
-        public ViewNotePage()
+        public ViewNotesPage()
         {
-            Title = "View Note";
+            Title = "View Notes";
             Icon = new("\uE70B");
-            Name = "View";
+            Name = "View Notes";
             shownItems = items;
         }
 

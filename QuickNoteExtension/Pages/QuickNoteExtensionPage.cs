@@ -27,7 +27,7 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
             quickNote,
             new ListItem(new CreateNoteFormPage()) { Title = "Create note", Subtitle = "Create a new note" },
             new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly save the clipboard contents" },
-            new ListItem(new ViewNotePage()) { Title = "View Notes", Subtitle = "View existing notes" },
+            new ListItem(new ViewNotesPage()) { Title = "View Notes", Subtitle = "View existing notes" },
         ];
     }
 
