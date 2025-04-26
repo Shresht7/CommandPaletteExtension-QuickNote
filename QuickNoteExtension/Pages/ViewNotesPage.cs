@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,40 +11,38 @@ namespace QuickNoteExtension.Pages
 {
     internal sealed partial class ViewNotesPage : DynamicListPage
     {
+        private readonly ListItem[] notes;
+        private ListItem[] filteredNotes;
+
         public ViewNotesPage()
         {
             Title = "View Notes";
             Icon = new("\uE70B");
             Name = "View Notes";
-            shownItems = items;
+
+            notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
+                .Select(path => new ListItem(new NoOpCommand()) { Title = "Note", Subtitle = path })
+                .ToArray();
+            filteredNotes = notes;
         }
-
-        private ListItem[] items = new ListItem[]
-        {
-                   new ListItem(new NoOpCommand()) { Title = "One" },
-                   new ListItem(new NoOpCommand()) { Title = "Two" },
-                   new ListItem(new NoOpCommand()) { Title = "Three" },
-        };
-
-        private ListItem[] shownItems;
 
         public override IListItem[] GetItems()
         {
-            return shownItems;
+            return filteredNotes;
         }
 
         public override void UpdateSearchText(string oldSearch, string newSearch)
         {
             if (oldSearch == newSearch)
             {
-                shownItems = items;
+                filteredNotes = notes;
             }
             else
             {
-                shownItems = items.Where(i => i.Title.Contains(newSearch)).ToArray();
+                filteredNotes = notes.Where(i => i.Title.Contains(newSearch)).ToArray();
             }
 
-            RaiseItemsChanged(shownItems.Length);
+            RaiseItemsChanged(filteredNotes.Length);
         }
     }
 }

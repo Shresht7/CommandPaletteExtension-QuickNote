@@ -22,7 +22,7 @@ internal class Utils
         return (filePath, fileName);
     }
 
-    private static string Extension()
+    public static string Extension()
     {
         var extension = QuickNoteExtensionSettings.Instance.Extension.Value ?? "txt";
         if (extension.StartsWith('.'))
