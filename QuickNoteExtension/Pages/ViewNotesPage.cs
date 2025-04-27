@@ -22,7 +22,7 @@ namespace QuickNoteExtension.Pages
 
             notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
                 .Select(path => new ListItem(new NoOpCommand()) { Title = "Note", Subtitle = path, Icon = new IconInfo("\uE70B") })
-                .ToArray();
+                .ToArray(); // Ensure the result is converted to an array
             filteredNotes = notes;
         }
 
@@ -39,10 +39,18 @@ namespace QuickNoteExtension.Pages
             }
             else
             {
-                filteredNotes = notes.Where(i => i.Title.Contains(newSearch)).ToArray();
+                filteredNotes = notes.Where(FilterNotesBySearch(newSearch)).ToArray();
             }
 
             RaiseItemsChanged(filteredNotes.Length);
         }
+
+        static Func<ListItem, bool> FilterNotesBySearch(string newSearch)
+        {
+            return i =>
+                i.Title.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase)
+                || i.Subtitle.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase);
+        }
+
     }
 }
