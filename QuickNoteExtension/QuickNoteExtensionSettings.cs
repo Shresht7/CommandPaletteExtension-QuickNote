@@ -16,6 +16,7 @@ public class QuickNoteExtensionSettings: JsonSettingsManager
         FilePath = GetSettingsPath();
 
         Settings.Add(NotesPath);
+        Settings.Add(Timestamp);
         Settings.Add(Extension);
 
         LoadSettings();
@@ -28,6 +29,13 @@ public class QuickNoteExtensionSettings: JsonSettingsManager
         "Path",
         "Path to the directory to save the notes",
         Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+    );
+
+    public readonly ToggleSetting Timestamp = new(
+        "timestamp",
+        "Timestamp",
+        "Append timestamp to the file-name",
+        true
     );
 
     public readonly TextSetting Extension = new(

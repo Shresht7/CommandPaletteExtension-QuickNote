@@ -17,7 +17,7 @@ internal class Utils
     public static (string filePath, string fileName) NotePath(string Title = "note")
     {
         string directory = NotesDirectory();
-        string fileName = $"{Title}__{Timestamp()}.{Extension()}";
+        string fileName = $"{Title}{Timestamp()}.{Extension()}";
         string filePath = Path.Combine(directory, fileName);
         return (filePath, fileName);
     }
@@ -34,7 +34,13 @@ internal class Utils
 
     private static string Timestamp()
     {
-        return $"{DateTime.Now:yyyyMMdd_HHmmss}";
+        if (QuickNoteExtensionSettings.Instance.Timestamp.Value)
+        {
+            return $"__{DateTime.Now:yyyyMMdd_HHmmss}";
+        } else
+        {
+            return "";
+        }
     }
 }
 
