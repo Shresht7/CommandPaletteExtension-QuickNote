@@ -21,7 +21,7 @@ namespace QuickNoteExtension.Pages
             Name = "View Notes";
 
             notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
-                .Select(path => new ListItem(new NoOpCommand()) { Title = "Note", Subtitle = path })
+                .Select(path => new ListItem(new NoOpCommand()) { Title = "Note", Subtitle = path, Icon = new IconInfo("\uE70B") })
                 .ToArray();
             filteredNotes = notes;
         }
