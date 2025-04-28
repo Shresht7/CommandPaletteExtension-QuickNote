@@ -2,6 +2,8 @@
 
 **QuickNote** is an extension for the Microsoft PowerToys Command Palette that allows you to quickly jot down notes without leaving your workflow.
 
+Notes are simple text/markdown files stored locally in a folder (`Desktop` by default).
+
 ## 🌟 Features
 
 - Instantly create and save notes from the Command Palette
