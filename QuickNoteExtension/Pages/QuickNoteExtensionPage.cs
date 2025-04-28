@@ -13,9 +13,10 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
 {
     public QuickNoteExtensionPage()
     {
-        Title = "Quick Note";
         Icon = new("\uE70B");
+        Title = "Quick Note";
         Name = "Open";
+        PlaceholderText = "Type note contents here...";
     }
 
     readonly static string defaultSubtext = "Type something...";
@@ -36,10 +37,10 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         // Only update if there's a meaningful change
         if (oldSearch == newSearch) return;
 
-        // Update the Text contents
+        // Update the quickNote command subtitle
         quickNote.Subtitle = string.IsNullOrEmpty(newSearch) ? defaultSubtext : newSearch;
 
-        // Update the command based on the query-Text
+        // Update the quickNote command based on the query-text
         quickNote.Command = new SaveNoteCommand(newSearch);
 
         RaiseItemsChanged(); // Responsible for indicating that the item needs to re-rendered
