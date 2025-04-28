@@ -36,7 +36,7 @@ namespace QuickNoteExtension.Pages
                 "version": "1.6",
                 "body": [
                     {
-                        "type": "Input.Text",
+                        "type": "Input.Content",
                         "placeholder": "Note title",
                         "label": "Title",
                         "isRequired": true,
@@ -44,7 +44,7 @@ namespace QuickNoteExtension.Pages
                         "errorMessage": "Title is required"
                     },
                     {
-                        "type": "Input.Text",
+                        "type": "Input.Content",
                         "placeholder": "Write your note contents here...",
                         "isMultiline": true,
                         "label": "Content",

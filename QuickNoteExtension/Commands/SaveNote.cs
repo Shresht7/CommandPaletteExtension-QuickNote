@@ -1,27 +1,19 @@
-﻿using Microsoft.CommandPalette.Extensions.Toolkit;
-using Microsoft.CommandPalette.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System;
 using System.IO;
+using Microsoft.CommandPalette.Extensions.Toolkit;
+using Microsoft.CommandPalette.Extensions;
 
 namespace QuickNoteExtension.Commands
 {
     internal sealed partial class SaveNoteCommand : InvokableCommand 
     {
-        /// <summary>
-        /// The text contents of the note
-        /// </summary>
-        string Text { get; set; } = "";
+        string Content { get; set; } = "";
 
         public SaveNoteCommand(string? contents = "")
         {
             Name = "Save Note";
             Icon = new("\uE70B");
-            Text = contents ?? "";
+            Content = contents ?? "";
         }
 
         public override ICommandResult Invoke()
@@ -30,7 +22,7 @@ namespace QuickNoteExtension.Commands
 
             try
             {
-                File.WriteAllText(filePath, Text);
+                File.WriteAllText(filePath, Content);
             }
             catch (Exception ex)
             {
