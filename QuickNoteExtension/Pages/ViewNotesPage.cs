@@ -16,12 +16,13 @@ namespace QuickNoteExtension.Pages
 
         public ViewNotesPage()
         {
-            Title = "View Notes";
             Icon = new("\uE70B");
+            Title = "View Notes";
             Name = "View Notes";
+            ShowDetails = true;
 
             notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
-                .Select(path => new ListItem(new ViewNoteContentPage("Note", path)) { Title = "Note", Subtitle = path, Icon = new IconInfo("\uE70B") })
+                .Select(CreateNoteListItem)
                 .ToArray();
             filteredNotes = notes;
         }
@@ -51,6 +52,24 @@ namespace QuickNoteExtension.Pages
                 i.Title.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase)
                 || i.Subtitle.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase);
         }
+
+        static ListItem CreateNoteListItem(string path)
+        {
+            string contents = File.ReadAllText(path);
+            string title = "Note";
+            return new ListItem(new ViewNoteContentPage("Note", path))
+            {
+                Title = title,
+                Subtitle = path,
+                Icon = new IconInfo("\uE70B"),
+                Details = new Details()
+                {
+                    Title = title,
+                    Body = contents,
+                }
+            };
+        }
+
 
     }
 }
