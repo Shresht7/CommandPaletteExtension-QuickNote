@@ -19,15 +19,18 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         PlaceholderText = "Type note contents here...";
     }
 
-    readonly static string defaultSubtext = "Type something...";
-    ListItem quickNote = new(new NoOpCommand()) { Title = "Quick note", Subtitle = defaultSubtext, Icon = new IconInfo("\uE70B") };
+    private readonly ListItem quickNote = new(new NoOpCommand()) {
+        Icon = new IconInfo("\uE70B"),
+        Title = "Quick note",
+        Subtitle = "Type something...",
+    };
 
     public override IListItem[] GetItems()
     {
         return [
             quickNote,
             new ListItem(new CreateNoteFormPage()) { Title = "Create note", Subtitle = "Create a new note" },
-            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly save the clipboard contents" },
+            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly save the clipboard contents to a note" },
             new ListItem(new ViewNotesPage()) { Title = "View Notes", Subtitle = "View existing notes" },
         ];
     }
@@ -38,7 +41,7 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
         if (oldSearch == newSearch) return;
 
         // Update the quickNote command subtitle
-        quickNote.Subtitle = string.IsNullOrEmpty(newSearch) ? defaultSubtext : newSearch;
+        quickNote.Subtitle = string.IsNullOrEmpty(newSearch) ? "Type something..." : "Quickly save the content to a note";
 
         // Update the quickNote command based on the query-text
         quickNote.Command = new SaveNoteCommand(newSearch);
