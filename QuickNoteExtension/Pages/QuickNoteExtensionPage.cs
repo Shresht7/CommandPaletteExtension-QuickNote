@@ -21,7 +21,7 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
 
     private readonly ListItem quickNote = new(new NoOpCommand()) {
         Icon = new IconInfo("\uE70B"),
-        Title = "Quick note",
+        Title = "Quick Note",
         Subtitle = "Type something...",
     };
 
@@ -29,8 +29,8 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
     {
         return [
             quickNote,
-            new ListItem(new CreateNoteFormPage()) { Title = "Create note", Subtitle = "Create a new note" },
-            new ListItem(new SaveClipboardCommand()) { Title = "Save clipboard", Subtitle = "Quickly save the clipboard contents to a note" },
+            new ListItem(new CreateNoteFormPage()) { Title = "Create Note", Subtitle = "Create a new note" },
+            new ListItem(new SaveClipboardCommand()) { Title = "Save Clipboard", Subtitle = "Quickly save the clipboard contents to a note" },
             new ListItem(new ViewNotesPage()) { Title = "View Notes", Subtitle = "View existing notes" },
         ];
     }
