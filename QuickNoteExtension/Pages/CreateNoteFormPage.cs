@@ -36,7 +36,7 @@ namespace QuickNoteExtension.Pages
                 "version": "1.6",
                 "body": [
                     {
-                        "type": "Input.Content",
+                        "type": "Input.Text",
                         "placeholder": "Note title",
                         "label": "Title",
                         "isRequired": true,
@@ -44,12 +44,13 @@ namespace QuickNoteExtension.Pages
                         "errorMessage": "Title is required"
                     },
                     {
-                        "type": "Input.Content",
+                        "type": "Input.Text",
                         "placeholder": "Write your note contents here...",
                         "isMultiline": true,
                         "label": "Content",
                         "id": "content",
                         "height": "stretch",
+                        "spacing": "large",
                         "isRequired": true,
                         "errorMessage": "Contents are required"
                     },
@@ -64,7 +65,7 @@ namespace QuickNoteExtension.Pages
                                 "role": "Button"
                             }
                         ],
-                        "spacing": "Medium",
+                        "spacing": "large",
                         "separator": true
                     }
                 ]
