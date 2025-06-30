@@ -21,9 +21,24 @@ namespace QuickNoteExtension.Pages
             Name = "View Notes";
             ShowDetails = true;
 
-            notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
-                .Select(CreateNoteListItem)
-                .ToArray();
+            try
+            {
+                notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
+                    .Select(CreateNoteListItem)
+                    .ToArray();
+            }
+            catch (Exception ex)
+            {
+                notes =
+                [
+                    new(new NoOpCommand())
+                    {
+                        Title = "Error loading notes",
+                        Subtitle = ex.Message,
+                        Icon = new IconInfo("\uEA39")
+                    }
+                ];
+            }
             filteredNotes = notes;
         }
 
@@ -55,19 +70,31 @@ namespace QuickNoteExtension.Pages
 
         static ListItem CreateNoteListItem(string path)
         {
-            string contents = File.ReadAllText(path);
-            string title = "Note";
-            return new ListItem(new ViewNoteContentPage("Note", path))
+            try
             {
-                Title = title,
-                Subtitle = path,
-                Icon = new IconInfo("\uE70B"),
-                Details = new Details()
+                string contents = File.ReadAllText(path);
+                string title = "Note";
+                return new ListItem(new ViewNoteContentPage("Note", path))
                 {
                     Title = title,
-                    Body = contents,
-                }
-            };
+                    Subtitle = path,
+                    Icon = new IconInfo("\uE70B"),
+                    Details = new Details()
+                    {
+                        Title = title,
+                        Body = contents,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ListItem(new NoOpCommand())
+                {
+                    Title = Path.GetFileName(path),
+                    Subtitle = $"Error reading file: {ex.Message}",
+                    Icon = new IconInfo("\uEA39"),
+                };
+            }
         }
 
 
