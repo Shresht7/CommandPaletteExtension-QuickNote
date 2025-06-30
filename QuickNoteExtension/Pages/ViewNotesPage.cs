@@ -16,7 +16,7 @@ namespace QuickNoteExtension.Pages
 
         public ViewNotesPage()
         {
-            Icon = new("\uE70B");
+            Icon = new("\uE7C4");
             Title = "View Notes";
             Name = "View Notes";
             ShowDetails = true;

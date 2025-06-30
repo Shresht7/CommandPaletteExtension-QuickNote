@@ -16,7 +16,7 @@ namespace QuickNoteExtension.Pages
     {
         public CreateNoteFormPage() {
             Title = "New Note";
-            Icon = new("\uE70B");
+            Icon = new("\uE8FF");
             Name = "Create Note";
         }
 

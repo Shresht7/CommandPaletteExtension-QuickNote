@@ -15,7 +15,7 @@ namespace QuickNoteExtension.Pages
         public ViewNoteContentPage(string title, string path)
         {
             Title = title;
-            Icon = new("\uE70B");
+            Icon = new("\uE7C4");
             Path = path;
         }
 
