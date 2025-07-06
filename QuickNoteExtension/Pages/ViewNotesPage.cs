@@ -89,12 +89,7 @@ namespace QuickNoteExtension.Pages
                         Body = contents,
                     },
                     MoreCommands = [
-                       new CommandContextItem("Copy") {
-                           Command = new AnonymousCommand(() => ClipboardHelper.SetText(contents)) {
-                               Name = "Copy Contents",
-                               Result = CommandResult.ShowToast("Copied contents to clipboard")
-                           }
-                       }
+                       new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" })
                     ]
                 };
             }
