@@ -24,6 +24,7 @@ namespace QuickNoteExtension.Pages
             try
             {
                 notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
+                    .OrderByDescending(path => File.GetLastWriteTime(path))
                     .Select(CreateNoteListItem)
                     .ToArray();
             }
