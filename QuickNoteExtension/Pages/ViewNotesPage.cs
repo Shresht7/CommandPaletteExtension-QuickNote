@@ -73,8 +73,9 @@ namespace QuickNoteExtension.Pages
             try
             {
                 string contents = File.ReadAllText(path);
-                string title = "Note";
-                return new ListItem(new ViewNoteContentPage("Note", path))
+                string title = DetermineTitle(path, contents);
+
+                return new ListItem(new ViewNoteContentPage(title, path))
                 {
                     Title = title,
                     Subtitle = path,
@@ -97,6 +98,23 @@ namespace QuickNoteExtension.Pages
             }
         }
 
+        private static string DetermineTitle(string path, string contents)
+        {
+            string title;
+            using (var reader = new StringReader(contents))
+            {
+                var firstLine = reader.ReadLine();
+                if (firstLine?.StartsWith("# ", StringComparison.Ordinal) == true)
+                {
+                    title = firstLine.Substring(2).Trim();
+                }
+                else
+                {
+                    title = Path.GetFileNameWithoutExtension(path);
+                }
+            }
 
+            return title;
+        }
     }
 }
