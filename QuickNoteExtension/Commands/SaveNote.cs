@@ -3,6 +3,8 @@ using System.IO;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using Microsoft.CommandPalette.Extensions;
 
+using QuickNoteExtension.Assets;
+
 namespace QuickNoteExtension.Commands
 {
     internal sealed partial class SaveNoteCommand : InvokableCommand 
@@ -12,7 +14,7 @@ namespace QuickNoteExtension.Commands
         public SaveNoteCommand(string? contents = "")
         {
             Name = "Save Note";
-            Icon = new("\uE70B");
+            Icon = Icons.QuickNote;
             Content = contents ?? "";
         }
 

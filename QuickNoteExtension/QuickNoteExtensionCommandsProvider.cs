@@ -5,6 +5,8 @@
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
+using QuickNoteExtension.Assets;
+
 namespace QuickNoteExtension;
 
 public partial class QuickNoteExtensionCommandsProvider : CommandProvider
@@ -14,7 +16,7 @@ public partial class QuickNoteExtensionCommandsProvider : CommandProvider
     public QuickNoteExtensionCommandsProvider()
     {
         DisplayName = "Quick Note";
-        Icon = new("\uE70B");
+        Icon = Icons.QuickNote;
         _commands = [
             new CommandItem(new QuickNoteExtensionPage()) { Title = DisplayName, Subtitle = "Take a quick note" },
         ];

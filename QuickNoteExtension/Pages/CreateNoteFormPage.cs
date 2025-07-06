@@ -9,6 +9,8 @@ using System.Text.Json.Nodes;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
+using QuickNoteExtension.Assets;
+
 
 namespace QuickNoteExtension.Pages
 {
@@ -16,7 +18,7 @@ namespace QuickNoteExtension.Pages
     {
         public CreateNoteFormPage() {
             Title = "New Note";
-            Icon = new("\uE8FF");
+            Icon = Icons.Preview;
             Name = "Create Note";
         }
 

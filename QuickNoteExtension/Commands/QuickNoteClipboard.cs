@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using Microsoft.CommandPalette.Extensions;
 
+using QuickNoteExtension.Assets;
+
 namespace QuickNoteExtension;
 
 internal sealed partial class SaveClipboardCommand : InvokableCommand
@@ -11,7 +13,7 @@ internal sealed partial class SaveClipboardCommand : InvokableCommand
     public SaveClipboardCommand()
     {
         Name = "Save Clipboard";
-        Icon = new("\uF0E3");
+        Icon = Icons.ClipboardList;
     }
 
     public override ICommandResult Invoke()

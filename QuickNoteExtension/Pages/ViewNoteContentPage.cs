@@ -1,10 +1,12 @@
-﻿using Microsoft.CommandPalette.Extensions;
-using Microsoft.CommandPalette.Extensions.Toolkit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CommandPalette.Extensions;
+using Microsoft.CommandPalette.Extensions.Toolkit;
+
+using QuickNoteExtension.Assets;
 
 namespace QuickNoteExtension.Pages
 {
@@ -16,7 +18,7 @@ namespace QuickNoteExtension.Pages
         {
             Name = "View";
             Title = title;
-            Icon = new("\uE7C4");
+            Icon = Icons.TaskView;
             Path = path;
         }
 

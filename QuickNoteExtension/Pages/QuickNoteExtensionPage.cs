@@ -4,6 +4,8 @@
 
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+
+using QuickNoteExtension.Assets;
 using QuickNoteExtension.Commands;
 using QuickNoteExtension.Pages;
 
@@ -13,14 +15,14 @@ internal sealed partial class QuickNoteExtensionPage : DynamicListPage
 {
     public QuickNoteExtensionPage()
     {
-        Icon = new("\uE70B");
+        Icon = Icons.QuickNote;
         Title = "Quick Note";
         Name = "Open";
         PlaceholderText = "Type note contents here...";
     }
 
     private readonly ListItem quickNote = new(new NoOpCommand()) {
-        Icon = new IconInfo("\uE70B"),
+        Icon = Icons.QuickNote,
         Title = "Quick Note",
         Subtitle = "Type something...",
     };

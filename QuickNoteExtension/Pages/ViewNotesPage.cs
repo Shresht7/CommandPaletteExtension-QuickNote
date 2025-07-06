@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
+using QuickNoteExtension.Assets;
+
 namespace QuickNoteExtension.Pages
 {
     internal sealed partial class ViewNotesPage : DynamicListPage
@@ -16,7 +18,7 @@ namespace QuickNoteExtension.Pages
 
         public ViewNotesPage()
         {
-            Icon = new("\uE7C4");
+            Icon = Icons.TaskView;
             Title = "View Notes";
             Name = "View Notes";
             ShowDetails = true;
@@ -36,7 +38,7 @@ namespace QuickNoteExtension.Pages
                     {
                         Title = "Error loading notes",
                         Subtitle = ex.Message,
-                        Icon = new IconInfo("\uEA39")
+                        Icon = Icons.ErrorBadge
                     }
                 ];
             }
@@ -80,7 +82,7 @@ namespace QuickNoteExtension.Pages
                 {
                     Title = title,
                     Subtitle = path,
-                    Icon = new IconInfo("\uE70B"),
+                    Icon = Icons.QuickNote,
                     Details = new Details()
                     {
                         Title = title,
@@ -102,7 +104,7 @@ namespace QuickNoteExtension.Pages
                 {
                     Title = Path.GetFileName(path),
                     Subtitle = $"Error reading file: {ex.Message}",
-                    Icon = new IconInfo("\uEA39"),
+                    Icon = Icons.ErrorBadge,
                 };
             }
         }
