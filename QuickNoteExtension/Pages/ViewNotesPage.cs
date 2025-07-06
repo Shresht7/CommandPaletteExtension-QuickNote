@@ -89,7 +89,8 @@ namespace QuickNoteExtension.Pages
                         Body = contents,
                     },
                     MoreCommands = [
-                       new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" })
+                       new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" }),
+                       new CommandContextItem(new CopyTextCommand(path) { Name = "Copy Path" }),
                     ]
                 };
             }
