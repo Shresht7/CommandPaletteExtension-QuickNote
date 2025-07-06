@@ -42,5 +42,14 @@ internal class Utils
             return "";
         }
     }
+
+    public static string SanitizeFileName(string fileName)
+    {
+        foreach (char c in Path.GetInvalidFileNameChars())
+        {
+            fileName = fileName.Replace(c.ToString(), "");
+        }
+        return fileName;
+    }
 }
 

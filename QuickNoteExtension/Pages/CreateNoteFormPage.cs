@@ -92,7 +92,7 @@ namespace QuickNoteExtension.Pages
             var contents = formInput["content"]?.GetValue<string>() ?? "";
 
             // Generate the filePath for the note
-            (string filePath, string fileName) = Utils.NotePath(title);
+            (string filePath, string fileName) = Utils.NotePath(Utils.SanitizeFileName(title));
 
             // Save the quick-note on disk
             try
