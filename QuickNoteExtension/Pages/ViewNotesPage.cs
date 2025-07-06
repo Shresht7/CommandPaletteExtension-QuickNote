@@ -100,21 +100,36 @@ namespace QuickNoteExtension.Pages
 
         private static string DetermineTitle(string path, string contents)
         {
-            string title;
+            var extension = Path.GetExtension(path).ToLowerInvariant();
+            string? title = null;
+
             using (var reader = new StringReader(contents))
             {
-                var firstLine = reader.ReadLine();
-                if (firstLine?.StartsWith("# ", StringComparison.Ordinal) == true)
+                string? line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    title = firstLine.Substring(2).Trim();
-                }
-                else
-                {
-                    title = Path.GetFileNameWithoutExtension(path);
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+
+                    if (extension == ".md" || extension == ".markdown")
+                    {
+                        if (line?.StartsWith("# ", StringComparison.Ordinal) == true)
+                        {
+                            title = line.Substring(2).Trim();
+                            break; 
+                        }
+                    }
+                    else
+                    {
+                        title = line.Trim();
+                        break;
+                    }
                 }
             }
-
-            return title;
+            
+            return title ?? Path.GetFileNameWithoutExtension(path);
         }
     }
 }
