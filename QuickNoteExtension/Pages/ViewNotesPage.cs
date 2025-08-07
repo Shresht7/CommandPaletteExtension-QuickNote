@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+
 using QuickNoteExtension.Assets;
+using QuickNoteExtension.Commands;
 
 namespace QuickNoteExtension.Pages
 {
@@ -90,6 +92,7 @@ internal sealed partial class ViewNotesPage : DynamicListPage
                 [
                    new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" }),
                    new CommandContextItem(new CopyTextCommand(path) { Name = "Copy Path" }),
+                     new CommandContextItem(new DeleteNoteCommand(path) { Name = "Delete Note" }),
                 ]
             };
         }
