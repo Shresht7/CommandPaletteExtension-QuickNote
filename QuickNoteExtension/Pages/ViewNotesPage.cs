@@ -2,141 +2,140 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
-
 using QuickNoteExtension.Assets;
 
 namespace QuickNoteExtension.Pages
 {
-    internal sealed partial class ViewNotesPage : DynamicListPage
+internal sealed partial class ViewNotesPage : DynamicListPage
+{
+    private readonly List<ListItem> _notes;
+    private string _searchText = string.Empty;
+
+    public ViewNotesPage()
     {
-        private readonly ListItem[] notes;
-        private ListItem[] filteredNotes;
+        Icon = Icons.TaskView;
+        Title = "View Notes";
+        Name = "View Notes";
+        ShowDetails = true;
 
-        public ViewNotesPage()
+        try
         {
-            Icon = Icons.TaskView;
-            Title = "View Notes";
-            Name = "View Notes";
-            ShowDetails = true;
+            _notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
+                .OrderByDescending(path => File.GetLastWriteTime(path))
+                .Select(CreateNoteListItem)
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            _notes =
+            [
+                new(new NoOpCommand())
+                {
+                    Title = "Error loading notes",
+                    Subtitle = ex.Message,
+                    Icon = Icons.ErrorBadge
+                }
+            ];
+        }
+    }
 
-            try
-            {
-                notes = Directory.EnumerateFiles(Utils.NotesDirectory(), $"*.{Utils.Extension()}", SearchOption.TopDirectoryOnly)
-                    .OrderByDescending(path => File.GetLastWriteTime(path))
-                    .Select(CreateNoteListItem)
-                    .ToArray();
-            }
-            catch (Exception ex)
-            {
-                notes =
-                [
-                    new(new NoOpCommand())
-                    {
-                        Title = "Error loading notes",
-                        Subtitle = ex.Message,
-                        Icon = Icons.ErrorBadge
-                    }
-                ];
-            }
-            filteredNotes = notes;
+    public override IListItem[] GetItems()
+    {
+        if (string.IsNullOrWhiteSpace(_searchText))
+        {
+            return _notes.ToArray();
         }
 
-        public override IListItem[] GetItems()
+        return _notes.Where(FilterNotesBySearch(_searchText)).ToArray();
+    }
+
+    public override void UpdateSearchText(string oldSearch, string newSearch)
+    {
+        if (oldSearch == newSearch)
         {
-            return filteredNotes;
+            return;
         }
 
-        public override void UpdateSearchText(string oldSearch, string newSearch)
+        _searchText = newSearch;
+        RaiseItemsChanged();
+    }
+
+    private static Func<ListItem, bool> FilterNotesBySearch(string newSearch)
+    {
+        return i =>
+            i.Title.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase)
+            || i.Subtitle.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase);
+    }
+
+    private static ListItem CreateNoteListItem(string path)
+    {
+        try
         {
-            if (oldSearch == newSearch)
+            string contents = File.ReadAllText(path);
+            string title = DetermineTitle(path, contents);
+
+            return new ListItem(new ViewNoteContentPage(title, path))
             {
-                filteredNotes = notes;
-            }
-            else
-            {
-                filteredNotes = notes.Where(FilterNotesBySearch(newSearch)).ToArray();
-            }
-
-            RaiseItemsChanged(filteredNotes.Length);
-        }
-
-        static Func<ListItem, bool> FilterNotesBySearch(string newSearch)
-        {
-            return i =>
-                i.Title.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase)
-                || i.Subtitle.Contains(newSearch, StringComparison.CurrentCultureIgnoreCase);
-        }
-
-        static ListItem CreateNoteListItem(string path)
-        {
-            try
-            {
-                string contents = File.ReadAllText(path);
-                string title = DetermineTitle(path, contents);
-
-                return new ListItem(new ViewNoteContentPage(title, path))
+                Title = title,
+                Subtitle = path,
+                Icon = Icons.QuickNote,
+                Details = new Details()
                 {
                     Title = title,
-                    Subtitle = path,
-                    Icon = Icons.QuickNote,
-                    Details = new Details()
-                    {
-                        Title = title,
-                        Body = contents,
-                    },
-                    MoreCommands = [
-                       new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" }),
-                       new CommandContextItem(new CopyTextCommand(path) { Name = "Copy Path" }),
-                    ]
-                };
-            }
-            catch (Exception ex)
-            {
-                return new ListItem(new NoOpCommand())
-                {
-                    Title = Path.GetFileName(path),
-                    Subtitle = $"Error reading file: {ex.Message}",
-                    Icon = Icons.ErrorBadge,
-                };
-            }
+                    Body = contents,
+                },
+                MoreCommands =
+                [
+                   new CommandContextItem(new CopyTextCommand(contents) { Name = "Copy Contents" }),
+                   new CommandContextItem(new CopyTextCommand(path) { Name = "Copy Path" }),
+                ]
+            };
         }
-
-        private static string DetermineTitle(string path, string contents)
+        catch (Exception ex)
         {
-            var extension = Path.GetExtension(path).ToLowerInvariant();
-            string? title = null;
-
-            using (var reader = new StringReader(contents))
+            return new ListItem(new NoOpCommand())
             {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        continue;
-                    }
+                Title = Path.GetFileName(path),
+                Subtitle = $"Error reading file: {ex.Message}",
+                Icon = Icons.ErrorBadge,
+            };
+        }
+    }
 
-                    if (extension == ".md" || extension == ".markdown")
+    private static string DetermineTitle(string path, string contents)
+    {
+        var extension = Path.GetExtension(path).ToLowerInvariant();
+        string? title = null;
+
+        using (var reader = new StringReader(contents))
+        {
+            string? line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                if (extension == ".md" || extension == ".markdown")
+                {
+                    if (line?.StartsWith("# ", StringComparison.Ordinal) == true)
                     {
-                        if (line?.StartsWith("# ", StringComparison.Ordinal) == true)
-                        {
-                            title = line.Substring(2).Trim();
-                            break; 
-                        }
-                    }
-                    else
-                    {
-                        title = line.Trim();
+                        title = line.Substring(2).Trim();
                         break;
                     }
                 }
+                else
+                {
+                    title = line.Trim();
+                    break;
+                }
             }
-            
-            return title ?? Path.GetFileNameWithoutExtension(path);
         }
+
+        return title ?? Path.GetFileNameWithoutExtension(path);
     }
+}
 }
