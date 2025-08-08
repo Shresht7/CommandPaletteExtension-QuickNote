@@ -4,6 +4,8 @@
 
 Notes are simple text/markdown files stored locally in a folder (`Desktop` by default).
 
+![screenshot](./screenshot.png)
+
 ## 🌟 Features
 
 - Instantly create and save notes from the Command Palette
